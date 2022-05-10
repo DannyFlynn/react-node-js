@@ -5,12 +5,12 @@ function Login() {
         <div className='form-field'>
             <h2>Login</h2>
             <form>
-                <label>Username:</label>
-                <input />
-                <label>Password:</label>
-                <input />
-                <label>Re-type Password:</label>
-                <input />
+                <label htmlFor='username'>Username:</label>
+                <input type='text' name='username'/>
+                <label htmlFor='password' >Password:</label>
+                <input type='password' name='password'/>
+                <label htmlFor='passwordOne'>Re-type Password:</label>
+                <input type='password' name='passwordOne' />
             </form>
         </div>
     </div>
