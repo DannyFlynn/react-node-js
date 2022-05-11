@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { schema } from '../validations/regValidation';
+import { schema } from '../userValidations/regValidation';
 import { yupResolver } from "@hookform/resolvers/yup";
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ function Registration() {
        resolver: yupResolver(schema) 
     });
 
-    const submitForm = (data) => {
+    const submitRegForm = (data) => {
         Axios.post('http://localhost:3001/reg', data)
         .then(response  => {
           console.log(response.data)
@@ -22,7 +22,7 @@ function Registration() {
 
   return (
     <div className='reg-container'>
-        <form onSubmit={handleSubmit(submitForm)} className='form-field'>   
+        <form onSubmit={handleSubmit(submitRegForm)} className='form-field'>   
                 <h4>{success.message}</h4>
                 <label >Username:</label>
                 <input type='text' name='username' {...register('username')} />
@@ -35,6 +35,7 @@ function Registration() {
                 <label>Re-type Password:</label>
                 <input type='password' name='passwordOne' {...register('passwordOne')} />
                 <p>{errors.passwordOne && "PASSWORD DOES NOT MATCH"}</p>
+
                 <button className='btn'>Register</button>
                 <Link to="/login">Login</Link>
         </form>

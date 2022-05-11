@@ -15,7 +15,7 @@ const register = async (req, res) => {
         console.log(response);
         
         if(response.length > 0){
-            res.status(201).json({message: "This username already exists please use our login page"});
+            res.status(201).json({message: "This username is already in use, please login."});
             
         } else {
             DB.query(sqlTwo, [username, hash], (error, result) => {
@@ -24,7 +24,7 @@ const register = async (req, res) => {
                     console.log(error);
                 
                 } else {
-                    res.status(201).json({message: "Created account success, please use our login page"});
+                    res.status(201).json({message: "Account success, please use our login page."});
                 }
             })
             
@@ -46,16 +46,21 @@ const login = async (req, res) => {
             bycrpyt.compare(password, response[0].password, (error, result) => {
                 if(error) throw error;
                 if(result) {
-                    res.status(201).json({message: "User had logged in", status: true});
+                    res.status(201).json({username});
                 } else {
-                    res.status(401).json({message: "Wrong username/password combination"});
+                    res.status(201).json({message: "Wrong username/password combination"});
                 }
             })
         } else {
-            res.status(400).json({message: "no such user exists"});
+            res.status(201).json({message: "no such user exists"});
         }
     })
 }
+
+
+
+
+
 
 
 module.exports = {register, login};
