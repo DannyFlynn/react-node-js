@@ -1,15 +1,15 @@
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { schema } from '../userValidations/logValidation';
 import { yupResolver } from "@hookform/resolvers/yup";
-import {useState} from 'react'
-import  Axios from 'axios'
+import {useState} from 'react';
+import  Axios from 'axios';
 
 
 function Login({logStatus, logIn}) {
 
   const [login, setLogin] = useState([]);
-  const [name, setName] = useState()
+  const [name, setName] = useState();
 
   const {register, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(schema)
@@ -18,11 +18,14 @@ function Login({logStatus, logIn}) {
   const submitLogForm = (data) => {
     Axios.post('http://localhost:3001/login', data)
     .then(response => {
-      console.log(response.data);
+      //console.log(response.data);
+      if(response.data.message) {
       setLogin(response.data);
-      logStatus(true)
-      setName(response.data.username)
-    })
+      } else {
+        logStatus(true);
+      setName(response.data.username);
+      }
+     })
    }
 
   return (
